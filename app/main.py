@@ -57,8 +57,3 @@ def get_hotels(search_args: HotelsSearchArgs = Depends()) -> list[SHotel]:
         },
     ]
     return hotels
-
-
-@app.post('/bookings')
-def add_booking(booking: SBooking):
-    pass
