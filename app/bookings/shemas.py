@@ -13,5 +13,4 @@ class SBooking(BaseModel):
     total_cost: int
 
     class Config:
-        orm_mode = True
-        # from_attributes = True  # For Pydantic >= 2.0
+        from_attributes = True
