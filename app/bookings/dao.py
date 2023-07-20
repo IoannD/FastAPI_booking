@@ -1,6 +1,7 @@
 from app.dao.base import BaseDAO
 from app.bookings.models import Bookings
 from app.hotels.models import Rooms
+from app.hotels.rooms.models import Rooms
 from sqlalchemy import select, func, and_, or_, insert
 from app.database import engine, async_session_maker
 from datetime import date
