@@ -1,24 +1,6 @@
 from fastapi import HTTPException, status
 
 
-# UserAlreadyExistException = HTTPException(status_code=status.HTTP_409_CONFLICT,
-#                                           detail='User already exist')
-
-# IncorrectEmailOrPasswordException = HTTPException(
-#     status_code=status.HTTP_409_CONFLICT, detail='Incorrect email or password')
-
-# TokenExpiredException = HTTPException(status_code=status.HTTP_409_CONFLICT,
-#                                       detail='Token expired')
-
-# TokenAbsentException = HTTPException(status_code=status.HTTP_409_CONFLICT,
-#                                       detail='Token absence')
-
-# IncorrectTokenFormatException = HTTPException(status_code=status.HTTP_409_CONFLICT,
-#                                       detail='Incorrect token format')
-
-# UserIsNotPresentException = HTTPException(status_code=status.HTTP_409_CONFLICT)
-
-
 class BookingException(HTTPException):
     status_code = 500
     detail = ''
@@ -55,3 +37,8 @@ class IncorrectTokenFormatException(BookingException):
 class UserIsNotPresentException(BookingException):
     status_code = status.HTTP_409_CONFLICT
     detail = ''
+
+
+class RoomCannotBeBookedException(BookingException):
+    status_code = status.HTTP_409_CONFLICT
+    detail = 'There are no available rooms left'
