@@ -1,8 +1,7 @@
 from app.dao.base import BaseDAO
 from app.bookings.models import Bookings
-from app.hotels.models import Rooms
 from app.hotels.rooms.models import Rooms
-from sqlalchemy import select, func, and_, or_, insert
+from sqlalchemy import select, func, and_, or_, insert, delete
 from app.database import engine, async_session_maker
 from datetime import date
 
@@ -65,3 +64,15 @@ class BookingDAO(BaseDAO):
 
             else:
                 return None
+
+    @classmethod
+    async def delete(cls, user_id: int, booking_id: int):
+        """
+        DELETE FROM bookings
+            WHERE id = '36' and user_id = '4';
+        """
+        query = delete(Bookings).where(and_(Bookings.id == booking_id,
+                                            Bookings.user_id == user_id))
+        async with async_session_maker() as session:
+            await session.execute(query)
+            await session.commit()
