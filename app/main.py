@@ -11,6 +11,7 @@ from fastapi_cache.decorator import cache
 from redis import asyncio as aioredis
 from sqladmin import Admin
 from app.admin.views import UsersAdmin, BookingsAdmin, RoomsAdmin, HotelsAdmin
+from app.admin.auth import authentication_backend
 
 from app.config import settings
 from app.database import engine
@@ -61,7 +62,7 @@ async def startup():
 
 
 #  Admin views
-admin = Admin(app, engine)
+admin = Admin(app=app, engine=engine, authentication_backend=authentication_backend)
 
 admin.add_view(UsersAdmin)
 admin.add_view(BookingsAdmin)
