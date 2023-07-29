@@ -1,7 +1,8 @@
 from app.dao.base import BaseDAO
 from app.bookings.models import Bookings
+from app.bookings.shemas import SBooking
 from app.hotels.rooms.models import Rooms
-from sqlalchemy import select, func, and_, or_, insert, delete
+from sqlalchemy import select, func, and_, or_, insert, delete, literal_column
 from app.database import engine, async_session_maker
 from datetime import date
 
@@ -60,9 +61,10 @@ class BookingDAO(BaseDAO):
 
                 new_booking = await session.execute(add_booking)
                 await session.commit()
-                return new_booking.mappings().all()
+                return new_booking.scalar()
 
             else:
+                print('Комнат нет')
                 return None
 
     @classmethod
