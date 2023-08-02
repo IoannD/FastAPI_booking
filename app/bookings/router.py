@@ -8,7 +8,7 @@ from app.users.models import Users
 from app.users.dependencies import get_current_user
 from app.exception import RoomCannotBeBookedException
 from app.tasks.tasks import send_booking_confirmation_email
-
+from app.config import settings
 
 router = APIRouter(prefix='/bookings', tags=['Bookings'])
 
@@ -31,8 +31,9 @@ async def add_booking(room_id: int, date_from: date, date_to: date,
         booking = TypeAdapter(SBooking).validate_python(booking).model_dump()
     except ValueError as e:
         print(e)
-
-    send_booking_confirmation_email.delay(booking, user.email)
+    
+    if settings.MODE == 'DEV' or settings.MODE == 'PROD':
+        send_booking_confirmation_email.delay(booking, user.email)
     return booking
 
 
